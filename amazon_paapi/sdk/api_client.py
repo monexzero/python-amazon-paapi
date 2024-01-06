@@ -28,7 +28,7 @@ from __future__ import absolute_import
 import datetime
 import json
 import mimetypes
-from multiprocessing.pool import ThreadPool
+#from multiprocessing.pool import ThreadPool
 import os
 import re
 import tempfile
@@ -88,7 +88,7 @@ class ApiClient(object):
             configuration = Configuration()
         self.configuration = configuration
 
-        self.pool = ThreadPool()
+        #self.pool = ThreadPool()
         self.rest_client = rest.RESTClientObject(configuration)
         self.default_headers = {}
         if header_name is not None:
@@ -103,8 +103,9 @@ class ApiClient(object):
         self.region = region
 
     def __del__(self):
-        self.pool.close()
-        self.pool.join()
+        # self.pool.close()
+        # self.pool.join()
+        pass
 
     @property
     def user_agent(self):
@@ -350,16 +351,16 @@ class ApiClient(object):
                                    response_type, auth_settings,
                                    _return_http_data_only, collection_formats,
                                    _preload_content, _request_timeout)
-        else:
-            thread = self.pool.apply_async(self.__call_api, (resource_path,
-                                           method, api_name, path_params, query_params,
-                                           header_params, body,
-                                           post_params, files,
-                                           response_type, auth_settings,
-                                           _return_http_data_only,
-                                           collection_formats,
-                                           _preload_content, _request_timeout))
-        return thread
+        # else:
+        #     thread = self.pool.apply_async(self.__call_api, (resource_path,
+        #                                    method, api_name, path_params, query_params,
+        #                                    header_params, body,
+        #                                    post_params, files,
+        #                                    response_type, auth_settings,
+        #                                    _return_http_data_only,
+        #                                    collection_formats,
+        #                                    _preload_content, _request_timeout))
+        # return thread
 
     def request(self, method, url, query_params=None, headers=None,
                 post_params=None, body=None, _preload_content=True,
